@@ -1,0 +1,105 @@
+
+badTimer.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00008000 <main>:
+    8000:	e92d4080 	push	{r7, lr}
+    8004:	e3a0e000 	mov	lr, #0
+    8008:	e3a0783e 	mov	r7, #4063232	; 0x3e0000
+    800c:	e3a060f9 	mov	r6, #249	; 0xf9
+    8010:	e1a0c00e 	mov	ip, lr
+    8014:	e3a00801 	mov	r0, #65536	; 0x10000
+    8018:	e59f4068 	ldr	r4, [pc, #104]	; 8088 <main+0x88>
+    801c:	e5941000 	ldr	r1, [r4]
+    8020:	e5913004 	ldr	r3, [r1, #4]
+    8024:	e3c33b07 	bic	r3, r3, #7168	; 0x1c00
+    8028:	e5813004 	str	r3, [r1, #4]
+    802c:	e5912004 	ldr	r2, [r1, #4]
+    8030:	e5943004 	ldr	r3, [r4, #4]
+    8034:	e59f5050 	ldr	r5, [pc, #80]	; 808c <main+0x8c>
+    8038:	e59f4050 	ldr	r4, [pc, #80]	; 8090 <main+0x90>
+    803c:	e3822701 	orr	r2, r2, #262144	; 0x40000
+    8040:	e5812004 	str	r2, [r1, #4]
+    8044:	e5837008 	str	r7, [r3, #8]
+    8048:	e5834000 	str	r4, [r3]
+    804c:	e5834018 	str	r4, [r3, #24]
+    8050:	e583601c 	str	r6, [r3, #28]
+    8054:	e583e00c 	str	lr, [r3, #12]
+    8058:	e5835008 	str	r5, [r3, #8]
+    805c:	e581001c 	str	r0, [r1, #28]
+    8060:	e5932010 	ldr	r2, [r3, #16]
+    8064:	e3520000 	cmp	r2, #0
+    8068:	0afffffc 	beq	8060 <main+0x60>
+    806c:	e583c00c 	str	ip, [r3, #12]
+    8070:	e5810028 	str	r0, [r1, #40]	; 0x28
+    8074:	e5932010 	ldr	r2, [r3, #16]
+    8078:	e3520000 	cmp	r2, #0
+    807c:	0afffffc 	beq	8074 <main+0x74>
+    8080:	e583c00c 	str	ip, [r3, #12]
+    8084:	eafffff4 	b	805c <main+0x5c>
+    8088:	00008094 	muleq	r0, r4, r0
+    808c:	003e00a2 	eorseq	r0, lr, r2, lsr #1
+    8090:	0098967f 	addseq	r9, r8, pc, ror r6
+
+Disassembly of section .data:
+
+00008094 <gpio>:
+    8094:	20200000 	eorcs	r0, r0, r0
+
+00008098 <armtime>:
+    8098:	2000b400 	andcs	fp, r0, r0, lsl #8
+
+Disassembly of section .bss:
+
+0000809c <timeout>:
+    809c:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <timeout+0x10c8c88>
+   4:	4e472820 	cdpmi	8, 4, cr2, cr7, cr0, {1}
+   8:	6f542055 	svcvs	0x00542055
+   c:	20736c6f 	rsbscs	r6, r3, pc, ror #24
+  10:	20726f66 	rsbscs	r6, r2, r6, ror #30
+  14:	204d5241 	subcs	r5, sp, r1, asr #4
+  18:	65626d45 	strbvs	r6, [r2, #-3397]!	; 0xd45
+  1c:	64656464 	strbtvs	r6, [r5], #-1124	; 0x464
+  20:	6f725020 	svcvs	0x00725020
+  24:	73736563 	cmnvc	r3, #415236096	; 0x18c00000
+  28:	2973726f 	ldmdbcs	r3!, {r0, r1, r2, r3, r5, r6, r9, ip, sp, lr}^
+  2c:	392e3420 	stmdbcc	lr!, {r5, sl, ip, sp}
+  30:	3220332e 	eorcc	r3, r0, #-1207959552	; 0xb8000000
+  34:	30353130 	eorscc	r3, r5, r0, lsr r1
+  38:	20393235 	eorscs	r3, r9, r5, lsr r2
+  3c:	6c657228 	sfmvs	f7, 2, [r5], #-160	; 0xffffff60
+  40:	65736165 	ldrbvs	r6, [r3, #-357]!	; 0x165
+  44:	415b2029 	cmpmi	fp, r9, lsr #32
+  48:	652f4d52 	strvs	r4, [pc, #-3410]!	; fffff2fe <timeout+0xffff7262>
+  4c:	6465626d 	strbtvs	r6, [r5], #-621	; 0x26d
+  50:	2d646564 	cfstr64cs	mvdx6, [r4, #-400]!	; 0xfffffe70
+  54:	2d395f34 	ldccs	15, cr5, [r9, #-208]!	; 0xffffff30
+  58:	6e617262 	cdpvs	2, 6, cr7, cr1, cr2, {3}
+  5c:	72206863 	eorvc	r6, r0, #6488064	; 0x630000
+  60:	73697665 	cmnvc	r9, #105906176	; 0x6500000
+  64:	206e6f69 	rsbcs	r6, lr, r9, ror #30
+  68:	32343232 	eorscc	r3, r4, #536870915	; 0x20000003
+  6c:	005d3838 	subseq	r3, sp, r8, lsr r8
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002f41 	andeq	r2, r0, r1, asr #30
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000025 	andeq	r0, r0, r5, lsr #32
+  10:	4d524105 	ldfmie	f4, [r2, #-20]	; 0xffffffec
+  14:	4d445437 	cfstrdmi	mvd5, [r4, #-220]	; 0xffffff24
+  18:	02060049 	andeq	r0, r6, #73	; 0x49
+  1c:	01090108 	tsteq	r9, r8, lsl #2
+  20:	01140412 	tsteq	r4, r2, lsl r4
+  24:	03170115 	tsteq	r7, #1073741829	; 0x40000005
+  28:	01190118 	tsteq	r9, r8, lsl r1
+  2c:	021e011a 	andseq	r0, lr, #-2147483642	; 0x80000006
