@@ -8,12 +8,11 @@ The demo runs on an Raspberry Pi RevB (BCM2835) board.
 
 ** Build Procedure **
 
-This demo was built using the Yagarto GCC toolchain. Just type 'make'
-and the executable will be built to build/ch.bin. 
+This demo was built using the Yagarto GCC toolchain. 
+Type 'make' and the executable will be built to build/ch.bin. 
+(you need to follow first the procedure in the README.md at the
+beggining of this collections of laboratories in order to run this)
 
-** Building the 3 demos **
-
-You modify each main to main.c and then compile it with 'make'
 use the build/ch.bin file rename it in raspberryFiles/kernel.img
 
 	mv build/ch.bin ../rasberryFiles/kernel.img
