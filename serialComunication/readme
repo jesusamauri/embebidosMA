@@ -1,0 +1,21 @@
+**************************************************************
+In this indroductory laboratory we have already compile all the
+files and are ready to use in raspberryFiles, just copy the 3
+files to the rasberry SD card.
+
+If you want to go and do it your self go to
+	cd uart 
+
+And compile it with the 'make' command
+
+	make
+
+Now with the kernel.img move it to RaspberryFiles
+
+	cp kernel.img ../rasberry/
+
+And you will be ready to go.
+***************************************************************
+
+
+
