@@ -1,7 +1,14 @@
+#Compiler variable
 ARMGNU ?= /usr/bin/arm-none-eabi
+
+#Flags for the compiler
 COPS = -Wall -Werror -O2 -nostdlib -nostartfiles -ffreestanding
+
+#files to be make
 gcc: blink.hex blink.bin kernel.img
 all : gcc clang
+
+#clean workspace before any file creation
 clean: 
 	rm -f *.o
 	rm -f *.bin
@@ -11,6 +18,8 @@ clean:
 	rm -f *.img
 	rm -f *.bc
 	rm -f *.clang.opt.s
+
+#file creation
 vectors.o : vectors.s
 	$(ARMGNU)-as vectors.s -o vectors.o
 blink.o : blink.c
