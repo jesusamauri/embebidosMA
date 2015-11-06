@@ -53,11 +53,13 @@ static msg_t Thread1(void *p) {
 	int contThread1 = 0;
   chRegSetThreadName("blinker");
 
+		/*creates a counter*/
 		while(contThread1 < 10000){
 			contThread1++;
 		}
-		chEvtSignal(point3, 3); /*TODO*/ 
-		chEvtSignal(point4, 3); /*TODO*/ 
+		/*when the counter is done send signal to thread 3 and 4*/
+		chEvtSignal(point3, 3); 
+		chEvtSignal(point4, 3);
 		contThread1 = 0;
 
   return 0;
@@ -68,12 +70,15 @@ static msg_t Thread1(void *p) {
 static msg_t Thread2(void *p) {
   (void)p;
   chRegSetThreadName("blinker2");
-
+	/*inititilize variable for the button that will be pressed*/
 	uint32_t buttA;
+
 	while(1){
 
+		/*verifies if the button has been pressed*/
 		buttA = palReadPad(GPIO23_PORT, GPIO23_PAD);
 		if(buttA){
+			/*if button is pressed send signal to thread 5 and 6*/
 			chEvtSignal(point5, 5);
 			chEvtSignal(point6, 5);
 		}
@@ -86,7 +91,9 @@ static msg_t Thread2(void *p) {
 static msg_t Thread3(void *p) {
   (void)p;
   chRegSetThreadName("blinker3");
+	/*waits for signal from thread 1 to be send*/
 	chEvtWaitOne(3);
+	/*set High port 27*/
   palSetPad(GPIO27_PORT, GPIO27_PAD);
 
   return 0;
@@ -97,9 +104,12 @@ static msg_t Thread3(void *p) {
 static msg_t Thread4(void *p) {
   (void)p;
   chRegSetThreadName("blinker4");
+	/*waits for signal from thread 1*/
 	chEvtWaitOne(3);
+	/*semaphore been use*/
 	chBSemWait(&SemSerialPort);
   chprintf((BaseSequentialStream *)&SD1, "EVENT 1 HAS OCCURRED\r\n");
+	/*semaphore release*/
 	chBSemSignal(&SemSerialPort);
   return 0;
 }
@@ -109,7 +119,9 @@ static msg_t Thread4(void *p) {
 static msg_t Thread5(void *p) {
   (void)p;
   chRegSetThreadName("blinker5");
+	/*wait for signal from thread 2*/
 	chEvtWaitOne(5);
+	/*set High port 22*/
   palSetPad(GPIO22_PORT, GPIO22_PAD);
   return 0;
 }
@@ -119,9 +131,12 @@ static msg_t Thread5(void *p) {
 static msg_t Thread6(void *p) {
   (void)p;
   chRegSetThreadName("blinker6");
+	/*wait for signal from thread 2*/
 	chEvtWaitOne(5);
+	/*semaphore been use*/
 	chBSemWait(&SemSerialPort);
   chprintf((BaseSequentialStream *)&SD1, "EVENT 2 HAS OCCURRED\r\n");
+	semaphore release
 	chBSemSignal(&SemSerialPort);
   return 0;
 }

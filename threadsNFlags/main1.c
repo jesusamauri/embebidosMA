@@ -18,8 +18,10 @@ static msg_t Thread1(void *p) {
   (void)p;
   chRegSetThreadName("tread1");
   while(1){
+		//semaforo been use 
     chBSemWait(&semaforo);
     chprintf((BaseSequentialStream *)&SD1, "This is thread1\r\n");
+		//semaforo release 
     chBSemSignal(&semaforo);
   }
   return 0;
@@ -29,8 +31,10 @@ static msg_t Thread2(void *p) {
   (void)p;
   chRegSetThreadName("thread2");
   while(1){
+		//semaforo been use 
     chBSemWait(&semaforo);
     chprintf((BaseSequentialStream *)&SD1, "This is thread2\r\n");
+		//semaforo release 
     chBSemSignal(&semaforo);
   }
   return 0;
@@ -40,8 +44,10 @@ static msg_t Thread3(void *p) {
   (void)p;
   chRegSetThreadName("thread3");
   while(1){
+		//semaforo been use 
     chBSemWait(&semaforo);
     chprintf((BaseSequentialStream *)&SD1, "This is thread3\r\n");
+		//semaforo release 
     chBSemSignal(&semaforo);
   }
   return 0;

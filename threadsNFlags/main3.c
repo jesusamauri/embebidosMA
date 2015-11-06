@@ -50,10 +50,13 @@ static msg_t Thread1(void *p) {
 	unsigned int i = 0;
 	while(1){
 
+		/*loop for a counter just to make some time*/
 		for(i=0; i<0xFFFFFF; i++)
 			palClearPad(ONBOARD_LED_PORT, ONBOARD_LED_PAD);
+		/*send signals to thread 3 y 4*/
 		chEvtSignal(point3, 3);  
 		chEvtSignal(point4, 3);  
+		/*wait for signal from thread 4*/
 		chEvtWaitOne(5);
 	}
 
@@ -68,6 +71,7 @@ static msg_t Thread2(void *p) {
   chRegSetThreadName("blinker2");
 
 while (1) {
+		/*toggle port 22 L to H */
     palClearPad(GPIO22_PORT, GPIO22_PAD);
     chThdSleepMilliseconds(500);
     palSetPad(GPIO22_PORT, GPIO22_PAD);
@@ -83,9 +87,13 @@ static msg_t Thread3(void *p) {
   chRegSetThreadName("blinker3");
 	while(1){
 		
+		/*print running in the terminal */
   	chprintf((BaseSequentialStream *)&SD1, "running\r\n");
+		/*wait for signal from thread 1*/
 		chEvtWaitOne(3);
+		/*print halt in the terminal*/
   	chprintf((BaseSequentialStream *)&SD1, "halt...\r\n");
+		/*wait for signal from thread 4*/
 		chEvtWaitOne(5);
 	}
 
@@ -97,14 +105,21 @@ static msg_t Thread3(void *p) {
 static msg_t Thread4(void *p) {
   (void)p;
   chRegSetThreadName("blinker4");
+	/*declaration for the resset button*/
 	uint32_t buttA;
 	int flagSignal = 0;
 	while(1){
+		
+		/*wait for thread 1 to send his signal*/
 		if(flagSignal == 0)
 			chEvtWaitOne(3);
+		/*once the signal is been send check for the reset
+		button to be send*/
 		flagSignal = 1;
 		buttA = palReadPad(GPIO23_PORT, GPIO23_PAD);
+		/*if the reset button is pressed send signals to thread 1 and 3*/
 		if(buttA){
+
 			chEvtSignal(point1, 5);
 			chEvtSignal(point3, 5);
 			flagSignal = 0;
